@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_967.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_967.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>bolonese_pasta</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>39</xmin>
+			<ymin>39</ymin>
+			<xmax>211</xmax>
+			<ymax>216</ymax>
+		</bndbox>
+	</object>
+</annotation>

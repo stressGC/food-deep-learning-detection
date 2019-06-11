@@ -1,0 +1,38 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_288.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_288.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fries</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>86</xmin>
+			<ymin>49</ymin>
+			<xmax>224</xmax>
+			<ymax>227</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>ketchup</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1</xmin>
+			<ymin>75</ymin>
+			<xmax>65</xmax>
+			<ymax>142</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,38 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_776.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_776.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>carbonara</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>30</xmin>
+			<ymin>54</ymin>
+			<xmax>234</xmax>
+			<ymax>203</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>bread</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>5</xmin>
+			<ymin>11</ymin>
+			<xmax>79</xmax>
+			<ymax>49</ymax>
+		</bndbox>
+	</object>
+</annotation>

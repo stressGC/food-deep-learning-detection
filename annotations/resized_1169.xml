@@ -1,0 +1,38 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_1169.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_1169.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>icecream</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>16</xmin>
+			<ymin>60</ymin>
+			<xmax>118</xmax>
+			<ymax>151</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>apple_pie</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>101</xmin>
+			<ymin>48</ymin>
+			<xmax>245</xmax>
+			<ymax>198</ymax>
+		</bndbox>
+	</object>
+</annotation>

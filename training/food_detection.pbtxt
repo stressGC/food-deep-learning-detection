@@ -1,0 +1,104 @@
+item {
+  name: 'apple_pie'
+  id: 1
+}
+
+item {
+  name: 'beer'
+  id: 2 
+}
+
+item {
+  name: 'bolonese_pasta'
+  id: 3    
+}
+
+item {
+  name: 'bread'
+  id: 4    
+}
+
+item {
+  name: 'burger'
+  id: 5    
+}
+
+item {
+  name: 'carbonara'
+  id: 6    
+}
+
+item {
+  name: 'carbonara_pasta'
+  id: 7    
+}
+
+item {
+  name: 'chantilly'
+  id: 8    
+}
+
+item {
+  name: 'coffee'
+  id: 9    
+}
+
+item {
+  name: 'cream'
+  id: 10
+}
+
+item {
+  name: 'fires'
+  id: 11
+}
+
+item {
+  name: 'fries'
+  id: 12    
+}
+
+item {
+  name: 'hotdog'
+  id: 13    
+}
+
+item {
+  name: 'icecream'
+  id: 14    
+}
+
+item {
+  name: 'ketchup'
+  id: 15    
+}
+
+item {
+  name: 'omelette'
+  id: 16    
+}
+
+item {
+  name: 'pie'
+  id: 17    
+}
+
+item {
+  name: 'potatoes'
+  id: 18    
+}
+
+item {
+  name: 'rice'
+  id: 19    
+}
+
+item {
+  name: 'salad'
+  id: 20
+}
+
+item {
+  name: 'sandwich'
+  id: 21
+}

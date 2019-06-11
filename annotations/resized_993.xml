@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_993.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_993.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>icecream</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>91</xmin>
+			<ymin>3</ymin>
+			<xmax>241</xmax>
+			<ymax>230</ymax>
+		</bndbox>
+	</object>
+</annotation>
