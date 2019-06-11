@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_1020.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_1020.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fries</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>31</xmin>
+			<ymin>13</ymin>
+			<xmax>232</xmax>
+			<ymax>211</ymax>
+		</bndbox>
+	</object>
+</annotation>

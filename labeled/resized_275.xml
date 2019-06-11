@@ -1,0 +1,26 @@
+<annotation>
+	<folder>resized</folder>
+	<filename>resized_275.jpg</filename>
+	<path>D:\Food Datasets\customDS\resized\resized_275.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>250</width>
+		<height>250</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>omelette</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>82</xmin>
+			<ymin>121</ymin>
+			<xmax>188</xmax>
+			<ymax>191</ymax>
+		</bndbox>
+	</object>
+</annotation>
