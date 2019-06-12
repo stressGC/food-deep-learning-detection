@@ -5,6 +5,14 @@ Le but de ce projet est de reconnaitre les aliments d’une assiette à partir d
 
 L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-Detection-Dataset).
 
+# Lien utiles
+- https://www.oreilly.com/ideas/object-detection-with-tensorflow
+- http://androidkt.com/train-object-detection/
+- https://github.com/datitran/raccoon_dataset
+- https://medium.com/@WuStangDan/step-by-step-tensorflow-object-detection-api-tutorial-part-1-selecting-a-model-a02b6aabe39e
+- https://cloud-annotations.github.io/training/object-detection/cli/index.html
+
+
 # Travail réalisé
 
 ## Découverte de la détection d'objets
