@@ -1,4 +1,9 @@
-# Présentation du projet
+# Reconnaissance d'aliments
+## 8INF912 - Sujet Spécial en informatique, UQAC
+
+Le but de ce projet est de reconnaitre les aliments d’une assiette à partir d’une photographie de ceux-ci. Il s’inscrit dans un cadre plus large visant à fournir un outil aux diabétiques leur permettant d’avoir une estimation des glucides de leur repas à partir d’une simple photographie depuis leur téléphone.
+
+L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-Detection-Dataset).
 
 # Travail réalisé
 
@@ -24,11 +29,13 @@ Le dataset était beaucoup trop petit pour avoir des résultats pertinents. De p
 
 J'ai extrait environ 15 classes du dataset Food101, en choississant celles qui avaient beaucoup de chance de contenir d'autres classes dans leurs images, afin de gagner du temps de scrapping et de labelisation (ex: burger, ketchup et fries souvent ensemble). 
 
-De plus, j'ai scrappé Google Images pour obtenir des classes personnalisées comme "salad", "ketchup" ou "bread" à l'aide de l'outil de téléchargement [Bulk Image Downloader](TODO).
+De plus, j'ai scrappé Google Images pour obtenir des classes personnalisées comme "salad", "ketchup" ou "bread" à l'aide de l'outil de téléchargement [Bulk Image Downloader](http://www.talkapps.org/bulk-image-downloader).
 
 J'ai donc obtenu environ 1900 images pour 19 classes, soit plus ou moins 100 images par classe. J'ai ensuite redimensionné celles-ci en format 250x250 pixels. [TODO link to script]
 
-Annotation du dataset avec l'outil [LabelImg](TODO) au format PascalVOC.
+![Classes](https://raw.githubusercontent.com/stressGC/Food-Detection-Dataset/master/report/number_of_classes.PNG?raw=true "Classes")
+
+Annotation du dataset avec l'outil [LabelImg](https://github.com/tzutalin/labelImg) au format PascalVOC.
 
 ## Mise en place d'une VM AWS
 
