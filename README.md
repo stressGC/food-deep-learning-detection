@@ -1,11 +1,12 @@
-# Reconnaissance d'aliments
-## 8INF912 - Sujet Spécial en informatique, UQAC
+This repository contains a description in both [french](https://github.com/stressGC/Food-Detection-Dataset/blob/master/README.fr.md) and [english](https://github.com/stressGC/Food-Detection-Dataset/blob/master/README.md).
 
-Le but de ce projet est de reconnaitre les aliments d’une assiette à partir d’une photographie de ceux-ci. Il s’inscrit dans un cadre plus large visant à fournir un outil aux diabétiques leur permettant d’avoir une estimation des glucides de leur repas à partir d’une simple photographie depuis leur téléphone.
+# Food Recognition using Deep Learning
 
-L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-Detection-Dataset).
+The main goal of this project is the recognition of food based on a picture of these. This project is a starter for a bigger project aiming to help diabetic people having an estimation of the glucides they are eating, based on a cellphone picture.
 
-# Lien utiles
+The source code of this project is available [there](https://github.com/stressGC/Food-Detection-Dataset).
+
+# Useful ressources
 - https://www.oreilly.com/ideas/object-detection-with-tensorflow
 - http://androidkt.com/train-object-detection/
 - https://github.com/datitran/raccoon_dataset
@@ -13,79 +14,77 @@ L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-
 - https://cloud-annotations.github.io/training/object-detection/cli/index.html
 
 
-# Travail réalisé
+# Work done
 
-## Découverte de la détection d'objets
+## Discovering the object detection world
 
-### Découverte
-- Recherche de datasets de nourriture et d'aliments
-- Recherches et compréhension des différents algorithmes
-- Familiarisation avec le dataset [Food-101](https://www.vision.ee.ethz.ch/datasets_extra/food-101/)
+### Discovery
+- Searching for food datasets
+- Documentation about various deep learning algorithms
+- Understanding the [Food-101 dataset](https://www.vision.ee.ethz.ch/datasets_extra/food-101/)
 
-### Première expérience
-- Mise en place d'une instance IBM Cloud Storage
-- Upload d'une partie du dataset sur celle-ci
-- Utilisation de l'outil Cloud Annotation Tool pour annoter ces images
-- Entrainement d'un modèle SSD MobileNet sur une instance IBM Cloud Computing
-- Récupération du modèle
-- Installation et configuration d'une application ReactJS pour tester le résultat sur ma webcam
+### First experience
+- Setting up a IBM Cloud Storage instance
+- Upload a small subset on it
+- Using the Cloud Annotation Tool on it
+- Training a SSD MobileNet model on an IBM Cloud Computing instance
+- Get the model back
+- Install and configure a ReactJS app to test the model directly on the webcam
 
-### Bilan
+The subset was way too small to have good results. The detections were completely chaotic. Moreover, the choice to be able to detect food based on a video (or webcam) is not relevant, we don't need to sacrifice performance for calculus time on our use case.
 
-Le dataset était beaucoup trop petit pour avoir des résultats pertinents. De plus, le choix de pouvoir détecter les aliments à partir d'une vidéo (ou webcam) n'est pas pertinent, on n'a pas besoin de sacrifier la performance pour augmenter le temps de calcul.
+## Creating a custom dataset
 
-## Création d'un dataset personnalisé
+I extracted around 15 classes from the Food101 dataset, choosing those having a high chance of containing other classes in their images, so that I could avoid spending too much time scrapping and annotation time (ex: burger, ketchup and fries are often together !).
 
-J'ai extrait environ 15 classes du dataset Food101, en choississant celles qui avaient beaucoup de chance de contenir d'autres classes dans leurs images, afin de gagner du temps de scrapping et de labelisation (ex: burger, ketchup et fries souvent ensemble). 
+I scrapped Google Images to obtain custom classes data like "salad" using the download tool [Bulk Image Downloader](http://www.talkapps.org/bulk-image-downloader).
 
-De plus, j'ai scrappé Google Images pour obtenir des classes personnalisées comme "salad", "ketchup" ou "bread" à l'aide de l'outil de téléchargement [Bulk Image Downloader](http://www.talkapps.org/bulk-image-downloader).
-
-J'ai donc obtenu environ 1900 images pour 19 classes, soit plus ou moins 100 images par classe. J'ai ensuite [redimensionné](https://github.com/stressGC/Food-Detection-Dataset/blob/master/image_resizer.py) celles-ci en format 250x250 pixels.
+I obtained around 1900 images dispatched in 19 classes, therefore at least 100 images per class. I then [resized](https://github.com/stressGC/Food-Detection-Dataset/blob/master/image_resizer.py) these into a 250x250 pixels format.
 
 ![Classes](https://raw.githubusercontent.com/stressGC/Food-Detection-Dataset/master/report/number_of_classes.PNG?raw=true "Classes")
 
-Annotation du dataset avec l'outil [LabelImg](https://github.com/tzutalin/labelImg) au format PascalVOC.
+For the annotation, I used the [LabelImg](https://github.com/tzutalin/labelImg) tool, saving boundary boxes as PascalVOC format.
 
-## Mise en place d'une VM AWS
+## Setting up an AWS GPU optimised instance
 
-Suite à de nombreux problèmes dans l'installation et configuration des outils de compilation de Tensorflow et de Python sous Windows, j'ai décidé de migrer sous Linux. J'ai donc mis en place une VM chez Amazon Web Services. VM de type g3.4xlarge, optimisée pour les calculs GPU (16 coeurs, 47 ECU et 122Gio de mémoire). Ensuite mise en place des dépendances et de Tensorflow.
+Following many problems in the setup and configuration of Tensorflow compiler on Windows, I decided to work on Linux. I ordered a virtual machine at Amazon Web Services, its type is g3.4xlarge, whoch is optimised for GPU computation (16 cores, 47 ECU, 122Gio memory). I then obtained a working environment.
 
-## Formattage & Répartition des données
+## Formatting & splitting data
 
-- Transfert du dataset vers l'instance AWS
+- Send the dataset to the remote server
 ```shell
 scp -i <key_path> -r <user>@<server>:<remote_path> <local_path>
 ```
-- [Convertion](https://github.com/stressGC/Food-Detection-Dataset/blob/master/voc_to_csv.py) des annotations du format PascalVOC vers un format CSV
+- [Conversion](https://github.com/stressGC/Food-Detection-Dataset/blob/master/voc_to_csv.py) of annotations from PascalVOC to CSV
 ```python
 python voc_to_csv.py
 ```
-- Mise en place d'un script de [séparation](https://github.com/stressGC/Food-Detection-Dataset/blob/master/label_test_train_split.py) des ensembles de test et d'entrainement
+- Writting a [splitting](https://github.com/stressGC/Food-Detection-Dataset/blob/master/label_test_train_split.py) script for train and test subsets
 ```python
 python labels_test_train_split.py
 ```
-- [Compilation](https://github.com/stressGC/Food-Detection-Dataset/blob/master/generate_tfrecord.py) du dataset en un fichier tfrecord, à réaliser deux fois pour les subsets d'entrainement et de test.
+- [Compiling](https://github.com/stressGC/Food-Detection-Dataset/blob/master/generate_tfrecord.py) the dataset into a tfrecord file, usable bu Tensorflow. This has to be done two times, for training and testing set.
 ```python
 python generate_tfrecord.py
 ```
-- Création du [fichier de mappage des classes](https://github.com/stressGC/Food-Detection-Dataset/blob/master/training/food_detection.pbtxt)
+- Creating a [class map file](https://github.com/stressGC/Food-Detection-Dataset/blob/master/training/food_detection.pbtxt)
 
-## Modèle
+## Model
 
-On utilise la méthode du transfer learning pour initialiser notre modèle à partir d'un modèle pré-entrainé sur des énormes quantités de données.
+We are using the transfer learning method to initialise our model based on an already-trained model, saving a lot a time and pain.
 
-Nous avons le choix entre les modèles "légers" et plus "approximatifs", et des modèles plus lents et "précis". J'ai choisi la seconde catégorie suite à ma première expérience décrite plus haut. Le modèle est [Inception v2](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) entrainé sur le dataset Coco. On a fait le choix de reconnaitre le bon aliment en plus de temps de calcul.
+We had the choice between lighter models and more accurate ones. I chose te second option following my first experience described above. The model used is [Inception v2](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) trained on the Coco dataset. I decided that time was not really a factor in my use case.
 
 ![Model Graph](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/model_graph.png?raw=true "Model Graph")
 
-### Installation
+### Setup
 
-- On clone le projet à partir du GitHub de Tensorflow
-- On l'intègre à notre projet et on configure le pipeline
+- Clone the project from the TensorFlow GitHub
+- Integrate to ours, and configure the [pipeline](https://github.com/stressGC/Food-Detection-Dataset/blob/master/training/inception_v2.config)
 
-### Entrainement
+### Training
 
-On lance l'entrainement
+We can launch the training that way:
 ```python
 python object_detection/model_main.py \
     --pipeline_config_path=training/inception_v2.config \
@@ -96,7 +95,7 @@ python object_detection/model_main.py \
 ```
 ![Terminal Screenshot](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/terminals_tensoflow_running.PNG?raw=true "Terminal Screenshot")
 
-On supervise l'entrainement avec TensorBoard (évaluation jobs). 
+Let's supervise the training with TensorBoard (evaluation jobs): 
 
 ```python
 # ssh into the server and tunnel the ports
@@ -107,8 +106,7 @@ tensorboard log_dir=.
 ```
 ![Loss Tensorboard screenshot](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/global_loss.PNG?raw=true "Loss Tensorboard screenshot")
 
-
-Enfin on sauvegarde le model en tant que fichier .pb.
+Finally lets save the model as a .pb file:
 ```python
 python export_inference_graph.py 
     --input_type image_tensor 
@@ -117,21 +115,20 @@ python export_inference_graph.py
     --output_directory <out_directory>
 ```
 
-# Planification
+# Roadmap
+- Conversion script to convert the model from a .pb file format to JSON, for it to be usable on the web
+- Modify the demo app so we can test the new model on static image and not webcam 
+- Make sure we chose the best fitting algorithm for our use case
+- Optimise the chosen model
+- Develop an API serving our model to the world
+- Refactor the architecture of our project so that it is more clean
+- Add classes to be recognised ?
 
-- Script de conversion du modèle du format .pb à JSON pour l'utiliser sur le web en NodeJS (avec Tensorflow JS)
-- Modifier l'application "démo" pour pouvoir tester sur des images et non sur la webcam le nouveau modèle.
-- Réiterer la recherche du meilleur modèle sur lequel réentrainer
-- Optimisation du modèle choisi
-- Mise en place d'une API servant notre modèle
-- Refactor l'architecture du projet pour respecter les bonnes pratiques
-- Ajouter des classes à reconnaitre
+# Conclusion
 
-# Bilan
+I encountered many difficulties to setup a working environment on Windows 10, moreover the custom dataset creation is a very boring and repetitive task.
 
-J'ai rencontré beaucoup de difficultés à mettre en place un environnement de travail sous Windows, de plus la création d'un dataset est un processus très long et répétitif.
-
-J'ai pris beaucoup de plaisir à mettre en place un dataset unique, et à le coupler à un modèle de Deep Learning. De plus, malgré beaucoup d'optimisations possibles, le modèle reconnait déjà ses premières images.
+I took a lot of pleasure setting up my own unique dataset, and to put it to pratice on a Deep Learning algorithm. Finally, despite many possible optimisations, the model has correct performances, and that makes me happy.
 
 # Author
 **Georges Cosson** : [LinkedIn](https://www.linkedin.com/in/georges-cosson/) - [GitHub](https://github.com/stressGC)
