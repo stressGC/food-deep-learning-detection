@@ -68,6 +68,8 @@ On utilise la méthode du transfer learning pour initialiser notre modèle à pa
 
 Nous avons le choix entre les modèles "légers" et plus "approximatifs", et des modèles plus lents et "précis". J'ai choisi la seconde catégorie suite à ma première expérience décrite plus haut. Le modèle est [Inception v2](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) entrainé sur le dataset Coco. On a fait le choix de reconnaitre le bon aliment en plus de temps de calcul.
 
+![Model Graph](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/model_graph.png?raw=true "Model Graph")
+
 ### Installation
 
 - On clone le projet à partir du GitHub de Tensorflow
@@ -84,8 +86,10 @@ python object_detection/model_main.py \
     --sample_1_of_n_eval_examples=1 \
     --alsologtostderr
 ```
+![Terminal Screenshot](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/terminals_tensoflow_running.PNG?raw=true "Terminal Screenshot")
 
 On supervise l'entrainement avec TensorBoard (évaluation jobs). 
+
 ```python
 # ssh into the server and tunnel the ports
 ssh -L 127.0.0.1:<local_port>:127.0.0.1:<remote_port> <user>@<server>
@@ -93,6 +97,8 @@ ssh -L 127.0.0.1:<local_port>:127.0.0.1:<remote_port> <user>@<server>
 cd path/to/project
 tensorboard log_dir=.
 ```
+![Loss Tensorboard screenshot](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/global_loss.PNG?raw=true "Loss Tensorboard screenshot")
+
 
 Enfin on sauvegarde le model en tant que fichier .pb.
 ```python
