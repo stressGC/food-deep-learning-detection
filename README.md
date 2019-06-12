@@ -12,7 +12,7 @@ L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-
 ### Découverte
 - Recherche de datasets de nourriture et d'aliments
 - Recherches et compréhension des différents algorithmes
-- Familiarisation avec le dataset [Food-101](TODO)
+- Familiarisation avec le dataset [Food-101](https://www.vision.ee.ethz.ch/datasets_extra/food-101/)
 
 ### Première expérience
 - Mise en place d'une instance IBM Cloud Storage
@@ -23,6 +23,7 @@ L’intégralité du code est disponible [ici](https://github.com/stressGC/Food-
 - Installation et configuration d'une application ReactJS pour tester le résultat sur ma webcam
 
 ### Bilan
+
 Le dataset était beaucoup trop petit pour avoir des résultats pertinents. De plus, le choix de pouvoir détecter les aliments à partir d'une vidéo (ou webcam) n'est pas pertinent, on n'a pas besoin de sacrifier la performance pour augmenter le temps de calcul.
 
 ## Création d'un dataset personnalisé
@@ -31,7 +32,7 @@ J'ai extrait environ 15 classes du dataset Food101, en choississant celles qui a
 
 De plus, j'ai scrappé Google Images pour obtenir des classes personnalisées comme "salad", "ketchup" ou "bread" à l'aide de l'outil de téléchargement [Bulk Image Downloader](http://www.talkapps.org/bulk-image-downloader).
 
-J'ai donc obtenu environ 1900 images pour 19 classes, soit plus ou moins 100 images par classe. J'ai ensuite redimensionné celles-ci en format 250x250 pixels. [TODO link to script]
+J'ai donc obtenu environ 1900 images pour 19 classes, soit plus ou moins 100 images par classe. J'ai ensuite [redimensionné](https://github.com/stressGC/Food-Detection-Dataset/blob/master/image_resizer.py) celles-ci en format 250x250 pixels.
 
 ![Classes](https://raw.githubusercontent.com/stressGC/Food-Detection-Dataset/master/report/number_of_classes.PNG?raw=true "Classes")
 
@@ -45,27 +46,27 @@ Suite à de nombreux problèmes dans l'installation et configuration des outils 
 
 - Transfert du dataset vers l'instance AWS
 ```shell
-scp -i "C:/Users/Georges/.ssh/amazon.pem" -r ubuntu@ec2-52-15-116-167.us-east-2.compute.amazonaws.com:/home/ubuntu/food_detection/tensorflow/models/research/dataset "D:/Food Datasets/customDS/dataset"
+scp -i <key_path> -r <user>@<server>:<remote_path> <local_path>
 ```
-- Convertion des annotations du format PascalVOC vers un format CSV
+- [Convertion](https://github.com/stressGC/Food-Detection-Dataset/blob/master/voc_to_csv.py) des annotations du format PascalVOC vers un format CSV
 ```python
 python voc_to_csv.py
 ```
-- Mise en place d'un script de séparation des ensembles de test et d'entrainement
+- Mise en place d'un script de [séparation](https://github.com/stressGC/Food-Detection-Dataset/blob/master/label_test_train_split.py) des ensembles de test et d'entrainement
 ```python
 python labels_test_train_split.py
 ```
-- Compilation du dataset en un fichier tfrecord, à réaliser deux fois pour les subsets d'entrainement et de test.
+- [Compilation](https://github.com/stressGC/Food-Detection-Dataset/blob/master/generate_tfrecord.py) du dataset en un fichier tfrecord, à réaliser deux fois pour les subsets d'entrainement et de test.
 ```python
 python generate_tfrecord.py
 ```
-- Création du fichier de mappage des classes
+- Création du [fichier de mappage des classes](https://github.com/stressGC/Food-Detection-Dataset/blob/master/training/food_detection.pbtxt)
 
 ## Modèle
 
 On utilise la méthode du transfer learning pour initialiser notre modèle à partir d'un modèle pré-entrainé sur des énormes quantités de données.
 
-Nous avons le choix entre les modèles "légers" et plus "approximatifs", et des modèles plus lents et "précis". J'ai choisi la seconde catégorie suite à ma première expérience décrite plus haut. Le modèle est inception v2 entrainé sur le dataset Coco. On a fait le choix de reconnaitre le bon aliment en plus de temps de calcul.
+Nous avons le choix entre les modèles "légers" et plus "approximatifs", et des modèles plus lents et "précis". J'ai choisi la seconde catégorie suite à ma première expérience décrite plus haut. Le modèle est [Inception v2](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md) entrainé sur le dataset Coco. On a fait le choix de reconnaitre le bon aliment en plus de temps de calcul.
 
 ### Installation
 
@@ -76,25 +77,29 @@ Nous avons le choix entre les modèles "légers" et plus "approximatifs", et des
 
 On lance l'entrainement
 ```python
-python ../object_detection/model_main.py \
+python object_detection/model_main.py \
     --pipeline_config_path=training/inception_v2.config \
-    --model_dir=resulting_model/ \
-    --num_train_steps=50000 \
+    --model_dir=<RESULT_MODEL_PATH>/ \
+    --num_train_steps=<NUM_TRAIN_STEP> \
     --sample_1_of_n_eval_examples=1 \
     --alsologtostderr
 ```
 
 On supervise l'entrainement avec TensorBoard (évaluation jobs). 
 ```python
-ssh -L 127.0.0.1:6006:127.0.0.1:6006 -i "C:/Users/Georges/.ssh/amazon.pem" ubuntu@ec2-52-15-116-167.us-east-2.compute.amazonaws.com
-launch tensorboard
+# ssh into the server and tunnel the ports
+ssh -L 127.0.0.1:<local_port>:127.0.0.1:<remote_port> <user>@<server>
+# launch tensorboard
 cd path/to/project
 tensorboard log_dir=.
 ```
 
 Enfin on sauvegarde le model en tant que fichier .pb.
 ```python
-python export_inference_graph.py --input_type image_tensor --pipeline_config_path training/inception_v2.config  --trained_checkpoint_prefix ./resulting_model/model.ckpt-2406 --output_directory ./fine_tuned_model
+python export_inference_graph.py 
+    --input_type image_tensor 
+    --pipeline_config_path training/inception_v2.config  --trained_checkpoint_prefix <last_checkpoint_path>
+    --output_directory <out_directory>
 ```
 
 # Planification
