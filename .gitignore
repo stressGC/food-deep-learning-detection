@@ -1,3 +1,6 @@
 resulting_model/
 fine_tuned_model/
 model/
+clean_model/
+json_output/
+json_output2/
