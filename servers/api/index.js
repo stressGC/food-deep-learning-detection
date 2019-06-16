@@ -2,24 +2,25 @@ const express = require('express');
 const tf = require('@tensorflow/tfjs');
 require('dotenv').config();
 
-async function launchServer() {
+const launchServer = async () => {
   const { PORT, MODEL_PATH } = process.env;
 
-  try {
-    console.log(`>> LOADING MODEL FROM "file://${MODEL_PATH}"`);
-    const model = await tf.loadLayersModel('file://' + MODEL_PATH);
-    console.log('>> MODEL LOADED');
-  } catch (e) {
-    console.log(">> ERROR:", e);
-  }
-
+  console.log(`>> LOADING MODEL FROM ${MODEL_PATH}`);
+  const model = await tf.loadGraphModel(MODEL_PATH);
+  console.log('>> MODEL LOADED');
 
   const app = express();
-  app.use('/model', express.static(__dirname + '/public/model'));
-  app.get('/predict', (req, res, next) => {
-    // res.send(JSON.stringify(model));
+  app.get('/predict', async (req, res, next) => {
+    // const predictions = model.predict(tensor).data();
+    // model.predict()
+    // res.json(model);
+    res.send("prediciton");
   });
-  app.listen(PORT, () => console.log(`App is listening on port ${PORT}`));
-}
+  app.listen(PORT, () => {
+    const used = process.memoryUsage().heapUsed / 1024 / 1024;
+    console.log(`Approximate usage: ${Math.round(used * 100) / 100} MB`);
+    console.log(`App is listening on port ${PORT}`);
+  });
+};
 
 launchServer();
