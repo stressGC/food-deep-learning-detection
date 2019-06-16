@@ -36,9 +36,13 @@ tensorflowjs_converter \
     /mobilenet/web_model
 ```
 ## mine
+tensorflowjs_converter --input_format=tf_saved_model --output_format=tfjs_graph_model --signature_name=serving_default fine_tuned_model/saved_mode json_output
+
 tensorflowjs_converter \
     --input_format=tf_saved_model \
     --output_format=tfjs_graph_model \
     --signature_name=serving_default \
-    fine_tuned_model/frozen_inference_graph.pb json_output
-```
+    --saved_model_tags=serve \
+    fin \
+    /mobilenet/web_model
+
