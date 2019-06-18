@@ -119,12 +119,29 @@ python export_inference_graph.py
     --output_directory <out_directory>
 ```
 
+### Export du model en JSON
+
+Une fois le modèle exporté en format JSON, on obtient un dossier avec les éléments `model.json` (configuration du modèle), `group1-shardXofX.bin` (poids), `labels.json` (classes).
+
+# Application Web
+
+J'ai simplement ajouté les [fichiers statiques](https://github.com/stressGC/Food-Boundary-Box-Detection-Dataset/tree/master/models/food_detection) obtenus précedemment sur l'API de mon site personnel pour qu'ils soient disponibles de n'importe où. Cette API est developpée en TypeScript, grâce au framework NodeJS, sur un modèle similaire à [celui-là](https://github.com/stressGC/ExpressJS-TypeScript-Starter-Kit).
+
+
+La partie client de l'application web est inspiré de ce [projet](https://github.com/cloud-annotations/object-detection-react). Je n'ai malheureusement pas réussi à faire marcher React avec mon modèle, suite à de nombreux problèmes sur le formattage des images et des tensors.
+
+J'ai donc utilisé le modèle [MobileNet v2](https://github.com/tensorflow/models/tree/master/research/slim/nets/mobilenet) pré-entrainé par Tensorflow sur le dataset Coco.
+
+L'application client est développé en ReactJS, elle permet de faire des prédictions avec ce modèle à partir de n'importe quelle image.
+
+## Résultats
+
+L'utilisateur peut charger une image depuis ses fichiers localement, où depuis des images pré-rentrées. Grâce à TensorflowJS, tous les calculs sont fait localement, aucune image n'est envoyée sur le serveur.
+
+![Démo !](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/demo_predict?raw=true "Exemple de prédiction")
+
 # Planification
 
-- Script de conversion du modèle du format .pb à JSON pour l'utiliser sur le web en NodeJS (avec Tensorflow JS)
-- Modifier l'application "démo" pour pouvoir tester sur des images et non sur la webcam le nouveau modèle.
-- Réiterer la recherche du meilleur modèle sur lequel réentrainer
-- Optimisation du modèle choisi
 - Mise en place d'une API servant notre modèle
 - Refactor l'architecture du projet pour respecter les bonnes pratiques
 - Ajouter des classes à reconnaitre
