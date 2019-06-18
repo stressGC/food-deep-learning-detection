@@ -138,7 +138,7 @@ L'application client est développé en ReactJS, elle permet de faire des prédi
 
 L'utilisateur peut charger une image depuis ses fichiers localement, où depuis des images pré-rentrées. Grâce à TensorflowJS, tous les calculs sont fait localement, aucune image n'est envoyée sur le serveur.
 
-![Démo !](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/demo_predict?raw=true "Exemple de prédiction")
+![Démo !](https://github.com/stressGC/Food-Detection-Dataset/blob/master/report/demo_predict.gif?raw=true "Exemple de prédiction")
 
 # Planification
 
