@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 
-import cat from '../../pictures/cat.jpg'
-import sloth from '../../pictures/sloth.jpg';
-import datacenter from '../../pictures/datacenter.jpg';
-import coast from '../../pictures/coast.jpg';
+import chicken from '../../pictures/chicken.PNG';
+import karting from '../../pictures/karting.PNG'
+import trump from '../../pictures/trump.jpg';
+import beer from '../../pictures/beer.jpg';
+import notredame from '../../pictures/notredame.jpg';
+import kimono from '../../pictures/kimono.jpg';
+
+import './index.css';
 
 import CarouselItem from '../carouselItem';
 
@@ -24,29 +28,32 @@ const Col = props =>
   <div className={`col-md-${props.size}`}>{props.children}</div>
 
 export default class Carousel extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <Footer>
         <Container>
+          {this.props.isRunning && <div className="overlay" /> }
           <Row>
-            <Col size="3">
-              <h3 style={{ color: "#E8E9EB" }}>ou depuis la librairie...</h3>
+            <h3 className="mb-4" style={{ color: "#E8E9EB" }}>ou depuis la librairie...</h3>
+          </Row>
+          <Row>
+            <Col size="2">
+              <CarouselItem source={chicken}  onClickEvent={(e) => this.props.onCarouselClick(chicken)} />
             </Col>
             <Col size="2">
-              <CarouselItem source={cat} />
+              <CarouselItem source={karting} onClickEvent={(e) => this.props.onCarouselClick(karting)} />
             </Col>
             <Col size="2">
-              <CarouselItem source={datacenter} />
+              <CarouselItem source={trump}  onClickEvent={(e) => this.props.onCarouselClick(trump)} />
             </Col>
             <Col size="2">
-              <CarouselItem source={sloth} />
+              <CarouselItem source={beer}  onClickEvent={(e) => this.props.onCarouselClick(beer)} />
             </Col>
             <Col size="2">
-              <CarouselItem source={coast} />
+              <CarouselItem source={notredame}  onClickEvent={(e) => this.props.onCarouselClick(notredame)} />
+            </Col>
+            <Col size="2">
+              <CarouselItem source={kimono}  onClickEvent={(e) => this.props.onCarouselClick(kimono)} />
             </Col>
           </Row>
         </Container>

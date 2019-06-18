@@ -9,17 +9,17 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fromFile : true,
+      // fromFile : true,
     };
-    this.onInputTypeChange = this.onInputTypeChange.bind(this);
+    // this.onInputTypeChange = this.onInputTypeChange.bind(this);
   }
 
-  onInputTypeChange(bool) {
-    console.log(bool)
-    this.setState({
-      fromFile: bool,
-    });
-  }
+  // onInputTypeChange(bool) {
+  //   console.log(bool)
+  //   this.setState({
+  //     fromFile: bool,
+  //   });
+  // }
 
   render() {
     return (
@@ -27,7 +27,6 @@ class App extends Component {
           <NavBar />
           {/* <A onInputTypeChange={this.onInputTypeChange} fromFile={this.state.fromFile}/> */}
           <Main />
-          <Carousel />
         </div>
     );
   }

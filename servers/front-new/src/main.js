@@ -1,9 +1,10 @@
 import * as tf from '@tensorflow/tfjs';
 import { MobileNet } from './model';
 import React, { Component } from 'react';
-import './index.css';
-import CustomLoader from './components/loader';
 import ListItem from './components/listItem';
+import Carousel from './components/carousel';
+
+import './index.css';
 
 export default class Main extends Component {
   constructor(props) {
@@ -15,14 +16,27 @@ export default class Main extends Component {
       image: null, 
       isRunning: false,
       predictedClasses: [],
-    }
+    };
+    this.onCarouselClick = this.onCarouselClick.bind(this);
+  }
+
+  setImageFromBlob(blob) {
+    const image = URL.createObjectURL(blob);
+    this.setState({
+      image,
+      isRunning: true,
+      predictedClasses: [],
+    });
+  }
+
+  onCarouselClick (imagePath) {
+    fetch(imagePath)
+      .then(res => res.blob())
+      .then(blob => this.setImageFromBlob(blob));
   }
 
   onChange({ target }) {
-    const image = URL.createObjectURL(target.files[0]);
-    this.setState({
-      image,
-    })
+    this.setImageFromBlob(target.files[0]);
   }
 
   predict = async () => {
@@ -80,7 +94,6 @@ export default class Main extends Component {
                 <h2> Classes détectées </h2>
               </div>
               <div class="card-body">
-                <p class="mb-2">Voici les classes qui ont été détectées !</p>
                 <ul class="list-group" ref={this.resultRef}>
                   {this.state.predictedClasses.map(pred => <ListItem label={pred.label} probability={pred.probability} />)}
                 </ul>
@@ -88,6 +101,8 @@ export default class Main extends Component {
             </div>
           </div>
         }
+        
+        <Carousel onCarouselClick={this.onCarouselClick} isRunning={this.state.isRunning}/>
       </div>
     );
   }
