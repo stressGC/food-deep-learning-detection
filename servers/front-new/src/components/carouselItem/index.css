@@ -1,0 +1,5 @@
+.card-clickable:hover {
+  transition-duration: 200ms;
+  transform: scale(1.2);
+  cursor: pointer;
+}
