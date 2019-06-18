@@ -15,9 +15,16 @@ export default class Main extends Component {
       isRunning: false,
       predictedClasses: [],
     };
+
     this.onCarouselClick = this.onCarouselClick.bind(this);
   }
 
+  /**
+   *  Update the state.image based on the Blob
+   *
+   * @param {Blob} blob
+   * @memberof Main
+   */
   setImageFromBlob(blob) {
     const image = URL.createObjectURL(blob);
     this.setState({
@@ -40,12 +47,13 @@ export default class Main extends Component {
   predict = async () => {
     this.setState({
       isRunning: true,
+      timeToCompute: null,
     });
     const imageElement = this.imageRef.current;
 
     const mobileNet = new MobileNet();
-    await mobileNet.load();
-
+    await mobileNet.load()
+    const before = Date.now();
     const pixels = tf.browser.fromPixels(imageElement).resizeNearestNeighbor([224, 224]);
     let result = mobileNet.predict(pixels);
     const topK = mobileNet.getTopKClasses(result, 5);
@@ -53,14 +61,16 @@ export default class Main extends Component {
     const predictedClasses = topK.map(c => {
       return { 
         label: c.label,
-        probability: c.value.toFixed(3),
+        probability: c.value.toFixed(2),
       };
     });
 
     this.setState({
       isRunning: false,
+      timeToCompute: Date.now() - before,
       predictedClasses,
     });
+  
     mobileNet.dispose();
 
   }
@@ -92,13 +102,18 @@ export default class Main extends Component {
               </div>
               <div className="card-body">
                 <ul className="list-group" ref={this.resultRef}>
-                  {this.state.predictedClasses.map(pred => <ListItem key={pred.probability} label={pred.label} probability={pred.probability} />)}
+                  {this.state.predictedClasses.map((pred, i) => <ListItem 
+                                                              key={pred.probability} 
+                                                              label={pred.label} 
+                                                              probability={pred.probability}
+                                                              index={i}
+                                                            />)}
                 </ul>
+                <p className="float-right mt-2">{this.state.timeToCompute} ms</p>
               </div>
             </div>
           </div>
         }
-        
         <Carousel onCarouselClick={this.onCarouselClick} isRunning={this.state.isRunning}/>
       </div>
     );
