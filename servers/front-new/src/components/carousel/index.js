@@ -17,7 +17,7 @@ const Container = props =>
   </div>
 
 const Footer = props =>
-  <footer className="footer fixed-bottom pt-4" style={{ borderTop: "2px solid #4c84ff", backgroundColor: '#1D2531'}}>
+  <footer className="footer fixed-bottom pt-4 pt-md-2" style={{ borderTop: "2px solid #4c84ff", backgroundColor: '#1D2531'}}>
     {props.children}
   </footer>
 
@@ -34,7 +34,7 @@ export default class Carousel extends Component {
         <Container>
           {this.props.isRunning && <div className="overlay" /> }
           <Row>
-            <h3 className="mb-4" style={{ color: "#E8E9EB" }}>ou depuis la librairie...</h3>
+            <h3 className="mb-4 mb-md-2" style={{ color: "#E8E9EB" }}>ou depuis la librairie...</h3>
           </Row>
           <Row>
             <Col size="2">

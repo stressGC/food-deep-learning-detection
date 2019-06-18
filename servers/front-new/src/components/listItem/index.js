@@ -13,7 +13,7 @@ const Badge = props =>
 
 
 const ListItem = props =>
-  <li className="list-group-item d-flex justify-content-between align-items-center text-dark" key={props.probability}>
+  <li className="list-group-item d-flex justify-content-between align-items-center text-dark">
     {props.label}
     <Badge probability={props.probability} />
   </li>;

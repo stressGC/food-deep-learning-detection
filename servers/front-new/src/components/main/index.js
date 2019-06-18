@@ -1,10 +1,8 @@
 import * as tf from '@tensorflow/tfjs';
-import { MobileNet } from './model';
+import { MobileNet } from '../../model';
 import React, { Component } from 'react';
-import ListItem from './components/listItem';
-import Carousel from './components/carousel';
-
-import './index.css';
+import ListItem from '../listItem';
+import Carousel from '../carousel';
 
 export default class Main extends Component {
   constructor(props) {
@@ -45,7 +43,6 @@ export default class Main extends Component {
     });
     const imageElement = this.imageRef.current;
 
-    // this.resultRef.current.innerText = 'Loading MobileNet...';
     const mobileNet = new MobileNet();
     await mobileNet.load();
 
@@ -71,7 +68,7 @@ export default class Main extends Component {
   render() {
     return (
       <div className="row" style={{ paddingTop: "73px", marginBottom: "73px" }}>
-        <div className="col-md-5">
+        <div className="col-5">
           <div className="card card-default">
 						<div className="card-header card-header-border-bottom">
 							<h2>{!this.state.isRunning ? 'Chargez une image' : 'Prédictions en cours...'}  </h2>
@@ -88,14 +85,14 @@ export default class Main extends Component {
 					</div>
         </div>
         {this.state.predictedClasses.length > 0 &&
-          <div className="col-md-7">
-            <div class="card card-default">
-              <div class="card-header card-header-border-bottom">
+          <div className="col-7">
+            <div className="card card-default">
+              <div className="card-header card-header-border-bottom">
                 <h2> Classes détectées </h2>
               </div>
-              <div class="card-body">
-                <ul class="list-group" ref={this.resultRef}>
-                  {this.state.predictedClasses.map(pred => <ListItem label={pred.label} probability={pred.probability} />)}
+              <div className="card-body">
+                <ul className="list-group" ref={this.resultRef}>
+                  {this.state.predictedClasses.map(pred => <ListItem key={pred.probability} label={pred.label} probability={pred.probability} />)}
                 </ul>
               </div>
             </div>
