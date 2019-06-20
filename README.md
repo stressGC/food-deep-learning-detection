@@ -1,6 +1,6 @@
 This repository contains a description in both [french](https://github.com/stressGC/Food-Detection-Dataset/blob/master/README.fr.md) and [english](https://github.com/stressGC/Food-Detection-Dataset/blob/master/README.md).
 
-# Food Recognition using Deep Learning
+# Food Recognition using Deep Learning 
 
 The main goal of this project is the recognition of food based on a picture of these. This project is a starter for a bigger project aiming to help diabetic people having an estimation of the glucides they are eating, based on a cellphone picture.
 
